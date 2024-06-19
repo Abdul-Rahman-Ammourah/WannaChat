@@ -1,3 +1,4 @@
+//ammourah and pZlHSnpTLbUkrUxj (Admin)
 import React from "react";
 import { View, Text, Modal,StyleSheet } from "react-native";
 import Style from "./Style/Model";

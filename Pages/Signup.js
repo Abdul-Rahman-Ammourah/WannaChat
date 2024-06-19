@@ -1,20 +1,31 @@
 import React from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet,Modal } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Modal } from 'react-native';
 import Title from '../Resources/TItleLogin.png';
+import C1Button from '../Functions/CustomButton1';
 export default function Login() {
     const [stats, setStats] = React.useState({
         emailinput: '',
-        signupCont:false,
+        signupCont: false,
+        username: '',
+        age: '',
+        password: '',
     });
 
     const handleMailPress = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (emailRegex.test(stats.emailinput)) {
-            // email is valid
-            return setStats({ ...stats, emailinput: true })
+            setStats({ ...stats, signupCont: true });
         } else {
             alert('Invalid email address');
-            return;
+        }
+    };
+    const handleSignInPress = () => {
+        const usernameRegex = /^[a-zA-Z0-9_]+$/;
+        const ageRegex = /^[0-9]+$/;
+        if (usernameRegex.test(stats.username) && ageRegex.test(stats.age) && stats.password.length >= 8) {
+            alert('Valid username, age or password');
+        } else {
+            alert('Invalid username, age or password');
         }
     };
 
@@ -40,13 +51,47 @@ export default function Login() {
             <Text style={styles.footerText}>
                 BY SIGNING UP, YOU AGREE TO OUR TERMS OF SERVICE AND PRIVACY POLICY
             </Text>
-            {/* <Text style={styles.footerText}>ALREADY HAVE AN ACCOUNT? SIGN IN</Text> */}
+            <C1Button text='BackDoor' onPress={() => setStats({ ...stats, signupCont: true })}></C1Button>
             <Modal
                 visible={stats.signupCont}
-                >
-                <View>
-                    <Text>hello</Text>
-                    <C1Button text="hello" onPress={() => setStats({ ...stats, signupCont:false })} />
+                animationType='slide'
+                transparent={false}
+            >
+                <View style={styles.modalOuter}>
+                    <Text style={styles.createAccountText}>CREATE YOUR ACCOUNT</Text>
+
+                    <View style={styles.modalInner}>
+                        <Text style={styles.modalText}>ENTER YOUR USER NAME</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="MAKE"
+                            placeholderTextColor="#fff"
+                            onChangeText={(text) => setStats({ ...stats, username: text })}
+                        />
+
+                        <Text style={styles.modalText}>ENTER YOUR AGE</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="AGE"
+                            placeholderTextColor="#fff"
+                            keyboardType='numeric'
+                            onChangeText={(text) => setStats({ ...stats, age: text })}
+                            maxLength={3}
+                        />
+
+                        <Text style={styles.modalText}>ENTER YOUR PASSWORD</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="PASSWORD"
+                            placeholderTextColor="#fff"
+                            secureTextEntry
+                            onChangeText={(text) => setStats({ ...stats, password: text })}
+                        />
+
+                        <TouchableOpacity style={styles.button} onPress={handleSignInPress}>
+                            <Text style={styles.buttonText}>CONTINUE</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </Modal>
         </View>
@@ -107,4 +152,21 @@ const styles = StyleSheet.create({
         color: '#666',
         marginTop: 20,
     },
+    modalOuter: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        padding: 20,
+    },
+    modalInner: {
+        width: '100%',
+        padding: 20,
+        backgroundColor: '#f8f8f8',
+    },
+    modalText: {
+        fontSize: 14,
+        marginBottom: 10,
+    },
 });
+
