@@ -1,22 +1,16 @@
 //ammourah and pZlHSnpTLbUkrUxj (Admin)
 import React from "react";
 import { View, Text, Modal,StyleSheet } from "react-native";
-import Style from "./Style/Model";
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Signup from "./Pages/Signup";
+import Signup from "./Pages/Login&Signup";
 import Home from "./Pages/Home";
-import { enableScreens } from 'react-native-screens';enableScreens();
+import CreateAccount from "./Pages/CreateAccount";
+
+
 export default function App() {
-  const [stats, setStats] = React.useState({
-    ModalVisible:false
-  })
-
-  const Tab = createBottomTabNavigator();
-
-
-
+  
   return (
-    <Signup></Signup>
+    <Signup />
+    // <Home />
+    // <CreateAccount />
   );
 }

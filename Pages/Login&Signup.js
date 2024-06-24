@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Modal, } from 'react-native';
 import Title from '../assets/WannaChatTitle.png';
 import C1Button from '../Functions/CustomButton1';
-export default function Login() {
+import CreateAccount from './CreateAccount';
+export default function Signup() {
     const [stats, setStats] = React.useState({
         showUser: false,
         signupCont: false,
@@ -17,18 +18,13 @@ export default function Login() {
     });
 
     const handleCreateNewAccountPress = () => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (emailRegex.test(user.emailinput)) {
-            setStats({ ...stats, signupCont: true });
-        } else {
-            alert('Invalid email address');
-        }
+        
     };
     const handleLoginPress = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (emailRegex.test(user.emailinput)) {
             if (user.password.length >= 8) {
-                
+                alert('Valid email address or password ');
             }
             else{
                 alert('Invalid email address or password ');
@@ -38,18 +34,8 @@ export default function Login() {
         }
 
     };
-    const handleSignInPress = () => {
-        const usernameRegex = /^[a-zA-Z0-9_]+$/;
-        const ageRegex = /^[0-9]+$/;
-        if (usernameRegex.test(user.username) && ageRegex.test(user.age) && user.password.length >= 8) {
-            alert('Valid username, age or password');
-            setStats({ ...stats, signupCont: false });
-
-        } else {
-            alert('Invalid username, age or password');
-        }
-    };
-
+    
+    //Main
     return (
         <View style={styles.container}>
             <Image source={Title} style={styles.imageCon} resizeMode="contain" />
@@ -81,65 +67,7 @@ export default function Login() {
             </TouchableOpacity>
 
             <C1Button text='BackDoor' onPress={() => setStats({ ...stats, signupCont: true })}></C1Button>
-
-            <Modal
-                visible={stats.signupCont}
-                animationType='slide'
-                transparent={false}
-            >
-                <View style={styles.modalOuter}>
-                    <Text style={styles.createAccountText}>CREATE YOUR ACCOUNT</Text>
-
-                    <View style={styles.modalInner}>
-                        <Text style={styles.modalText}>ENTER YOUR USER NAME</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Mike"
-                            placeholderTextColor="#fff"
-                            onChangeText={(text) => setUser({ ...user, username: text })}
-                        />
-
-                        <Text style={styles.modalText}>ENTER YOUR AGE</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Age"
-                            placeholderTextColor="#fff"
-                            keyboardType='numeric'
-                            onChangeText={(text) => setUser({ ...user, age: text })}
-                            maxLength={3}
-                        />
-
-                        <Text style={styles.modalText}>ENTER YOUR PASSWORD</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Password"
-                            placeholderTextColor="#fff"
-                            secureTextEntry
-                            onChangeText={(text) => setUser({ ...user, password: text })}
-                        />
-
-                        <TouchableOpacity style={styles.button} onPress={handleSignInPress}>
-                            <Text style={styles.buttonText}>CONTINUE</Text>
-                        </TouchableOpacity>
-                        <Text style={styles.footerText}>
-                            BY SIGNING UP, YOU AGREE TO OUR TERMS OF SERVICE AND PRIVACY POLICY
-                        </Text>
-                    </View>
-                    <C1Button text='BackDoor' onPress={() => setStats({ ...stats, showUser: true })}></C1Button>
-                </View>
-            </Modal>
-            <Modal
-                visible={stats.showUser}
-                animationType='slide'
-                transparent={false}
-            >
-                <View style={styles.modalOuter}>
-                    <Text style={styles.createAccountText}>your user name is: {user.username}</Text>
-                    <Text style={styles.createAccountText}>your age is:{user.age}</Text>
-                    <Text style={styles.createAccountText}>your password is: {user.password}</Text>
-
-                </View>
-            </Modal>
+            
         </View>
     );
 }
@@ -151,6 +79,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
         padding: 20,
+        
     },
     imageCon: {
         height: 120,
