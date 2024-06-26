@@ -4,9 +4,9 @@ import checkPassword from '../ValidationChecks/PassCheck';
 import checkEmail from '../ValidationChecks/EmailCheck';
 import checkUsername from '../ValidationChecks/UsernameCheck';
 import checkAge from '../ValidationChecks/AgeCheck';
-import CustomButton1 from '../Functions/CustomButton1';
+import CustomButton1 from '../CustomFunctions/CustomButton1';
 
-const CreateAccount = () => {
+const CreateAccount = ({navigation}) => {
     const [stats, setStats] = React.useState({
         showUser: false,
         showPassDetails: false,
@@ -55,6 +55,7 @@ const CreateAccount = () => {
                 agevalid: agevalid,
                 userValid:true
             });
+            navigation.navigate('Contacts');
             alert('Valid email address or password ');
         } else {
             setStats({
@@ -131,6 +132,10 @@ const CreateAccount = () => {
                     <Text style={styles.footerText}>
                         BY SIGNING UP, YOU AGREE TO OUR TERMS OF SERVICE AND PRIVACY POLICY
                     </Text>
+
+                    <C1Button text='Home' onPress={() => navigation.navigate('UnderCon')}></C1Button>
+                    <C1Button text='Signup' onPress={() => navigation.navigate('Signup')}></C1Button>
+
                 </View>
             </View>
         </View>

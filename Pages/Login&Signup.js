@@ -1,30 +1,23 @@
 import React from 'react';
 import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Modal, } from 'react-native';
-import Title from '../assets/WannaChatTitle.png';
-import C1Button from '../Functions/CustomButton1';
+import Title from '../assets/Photos/WannaChatTitle.png';
+import C1Button from '../CustomFunctions/CustomButton1';
 import CreateAccount from './CreateAccount';
-export default function Signup() {
-    const [stats, setStats] = React.useState({
-        showUser: false,
-        signupCont: false,
-        
-    });
-    const [user,setUser] = React.useState({
-        emailinput: '',
-        username: '',
-        age: '',
-        password: '',
-        Id: 0
-    });
+import checkEmail from '../ValidationChecks/EmailCheck';
+import checkPassword from '../ValidationChecks/PassCheck';
 
-    const handleCreateNewAccountPress = () => {
-        
-    };
+export default function Signup({navigation}) {
+    const [user, setUser] = React.useState({
+        emailinput: '',
+        password: '',
+    })
     const handleLoginPress = () => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (emailRegex.test(user.emailinput)) {
-            if (user.password.length >= 8) {
-                alert('Valid email address or password ');
+        const passcheck = checkPassword(user.password);
+        if (checkEmail(user.emailinput)) {
+            if (passcheck.isValid) {
+                navigation.navigate('Contacts');
+                alert('Welcome Back');
+
             }
             else{
                 alert('Invalid email address or password ');
@@ -34,8 +27,6 @@ export default function Signup() {
         }
 
     };
-    
-    //Main
     return (
         <View style={styles.container}>
             <Image source={Title} style={styles.imageCon} resizeMode="contain" />
@@ -62,12 +53,13 @@ export default function Signup() {
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={handleCreateNewAccountPress}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('CreateAccount')}>
                 <Text style={styles.buttonText}>Create a New Account</Text>
             </TouchableOpacity>
 
-            <C1Button text='BackDoor' onPress={() => setStats({ ...stats, signupCont: true })}></C1Button>
-            
+            <C1Button text='BackDoor' onPress={() => navigation.navigate('UnderCon')}></C1Button>
+            <C1Button text='Contacts BackDoor' onPress={() => navigation.navigate('Contacts')}></C1Button>
+
         </View>
     );
 }
